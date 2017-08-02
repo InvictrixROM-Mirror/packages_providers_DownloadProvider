@@ -99,7 +99,7 @@ public class DownloadNotifier {
         // Ensure that all our channels are ready to use
         mNotifManager.createNotificationChannel(new NotificationChannel(CHANNEL_ACTIVE,
                 context.getText(R.string.download_running),
-                NotificationManager.IMPORTANCE_LOW));
+                NotificationManager.IMPORTANCE_MIN));
         mNotifManager.createNotificationChannel(new NotificationChannel(CHANNEL_WAITING,
                 context.getText(R.string.download_queued),
                 NotificationManager.IMPORTANCE_DEFAULT));
@@ -264,11 +264,7 @@ public class DownloadNotifier {
                 if (Downloads.Impl.isStatusError(status)) {
                     action = Constants.ACTION_LIST;
                 } else {
-                    if (destination != Downloads.Impl.DESTINATION_SYSTEMCACHE_PARTITION) {
-                        action = Constants.ACTION_OPEN;
-                    } else {
-                        action = Constants.ACTION_LIST;
-                    }
+                    action = Constants.ACTION_OPEN;
                 }
 
                 final Intent intent = new Intent(action, uri, mContext, DownloadReceiver.class);
